@@ -1,0 +1,36 @@
+# =============== #
+# Unity generated #
+# =============== #
+
+/Space Jammers Game/Library
+/Space Jammers Game/Temp
+/Space Jammers Game/game_Data
+/Space Jammers Game/Assets/UnityVS
+/Space Jammers Game/Assets/UnityVS.meta
+/Space Jammers Game/*.exe
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+*.csproj
+*.pidb
+*.suo
+*.sln
+*.user
+*.unityproj
+*.booproj
+*.exe 
+# ============ #
+# OS generated #
+# ============ #
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
