@@ -2,12 +2,12 @@
 # Unity generated #
 # =============== #
 
-/Space Jammers Game/Library
-/Space Jammers Game/Temp
-/Space Jammers Game/game_Data
-/Space Jammers Game/Assets/UnityVS
-/Space Jammers Game/Assets/UnityVS.meta
-/Space Jammers Game/*.exe
+/SpaceJammersGame/Library
+/SpaceJammersGame/Temp
+/SpaceJammersGame/game_Data
+/SpaceJammersGame/Assets/UnityVS
+/SpaceJammersGame/Assets/UnityVS.meta
+/SpaceJammersGame/*.exe
 
 # ===================================== #
 # Visual Studio / MonoDevelop generated #
