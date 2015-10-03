@@ -11,13 +11,16 @@ public class Gravity : MonoBehaviour {
     float G = 6.674e-11f; // N*(m/kg)^2
     float universeScale = 40000000/10;
     public float timeScale = 1;
-    public float initialKick = 0;
+    public float initialVelocity = 0;
+    public bool inAtmosphere = false;
+    public float atmosphereBoundary;
+    public float atmoDrag = 0;
 
 	// Use this for initialization
 	void Start () {
 	    // Create a random initial velocity (also an apoapsis)
-        Vector2 forceDirection = Vector2.up;
-        transform.GetComponent<Rigidbody2D>().AddForce(forceDirection * initialKick * (Time.fixedDeltaTime));
+        transform.GetComponent<Rigidbody2D>().velocity = initialVelocity * Vector2.up;
+
 	}
 	
 	// Update is called once per frame
@@ -31,6 +34,17 @@ public class Gravity : MonoBehaviour {
         //apply gravetic acceleration (vector)
         transform.GetComponent<Rigidbody2D>().AddForce(forceDirection.normalized*gravForce*(timeScale*Time.fixedDeltaTime));
         //Debug.Log(Time.fixedDeltaTime);
+
+        Debug.Log(forceDirection.magnitude/universeScale);
+        if (forceDirection.magnitude/universeScale < atmosphereBoundary)
+            inAtmosphere = true;
+        else
+            inAtmosphere = false;
+
+        if (inAtmosphere)
+            GetComponent<Rigidbody2D>().drag = atmoDrag;
+        else
+            GetComponent<Rigidbody2D>().drag = 0;
 
 	}
 }
