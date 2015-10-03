@@ -23,8 +23,10 @@ public class gameController : MonoBehaviour {
 	}
 
     //when a collision is detected, do things!
-    void onCollisionEnter(Collision collision) {
-        
+    void OnCollisionEnter2D(Collision2D collision) {
+		Debug.Log ("Asteroid Collision!");
+        life = life - 1;
+        DestroyObject(collision.gameObject);
     }
 
 
