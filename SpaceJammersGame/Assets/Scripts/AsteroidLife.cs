@@ -20,7 +20,7 @@ public class AsteroidLife : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () { /*
+	void Update () {
         if (status == 0) {       // As yet unscanned
 
         }
@@ -35,7 +35,7 @@ public class AsteroidLife : MonoBehaviour {
         }
         else if (status == 4) {  // Acquired and Descending
         
-        }*/
+        }
 	}
 
     void OnMouseDown() {
