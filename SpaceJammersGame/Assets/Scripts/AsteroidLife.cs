@@ -10,10 +10,15 @@ public class AsteroidLife : MonoBehaviour {
     public Vector2 mousePos1;
     public Vector2 mousePos2;
     public float asteroidThrust = 1;
+    Animator animator;
 
 
 	// Use this for initialization
 	void Start () {
+        // Get the animator component
+        animator = GetComponent<Animator>();
+        animator.SetInteger("status", status);
+        
         // Create a random initial velocity (also an apoapsis)
         initialVector.Normalize();
         transform.GetComponent<Rigidbody2D>().velocity = initialSpeed * initialVector;
@@ -21,6 +26,8 @@ public class AsteroidLife : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        animator.SetInteger("status", status);  //update the animation appropriately
+
         if (status == 0) {       // As yet unscanned
 
         }
