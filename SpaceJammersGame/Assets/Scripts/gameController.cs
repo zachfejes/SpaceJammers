@@ -1,10 +1,22 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class gameController : MonoBehaviour {
-    // SMALL_MASS = 1000, MED_MASS = 4000, LARGE_MASS = 8000;
-    public static int[] masses = new int[3] {1000, 4000, 8000};
-    public const int MAX_EARTH_HEALTH = 10;
+    public const string EARTH_HEALTH_TEXT = "Earth Health: ";
+    public const string SCORE_TEXT = "Score: ";
+    public const string SCIENCE_POINTS_TEXT = "Science Points: ";
+    public const int MAX_EARTH_HEALTH = 100;
+    public const float SMALL_MASS = 1000F;
+    public const float MED_MASS = 4000F;
+    public const float LARGE_MASS = 8000F;
+    public static float[] masses = new float[3] {SMALL_MASS, MED_MASS, LARGE_MASS};
+    public static Dictionary<float, int> impacts = new Dictionary<float, int>() {
+        {SMALL_MASS, 5},
+        {MED_MASS, 10},
+        {LARGE_MASS, 20}
+    };
 
     // USER VARIABLES
     public int EarthHealth;
@@ -29,15 +41,27 @@ public class gameController : MonoBehaviour {
         // TODO: Currently generates every 5 seconds; want to randomly generate
         InvokeRepeating("CreateNewAsteroid", 0, 5);
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
+        SetEarthHealthText();
+        SetScoreText();
+        SetSciencePointsText();
 	}
 
     //when a collision is detected, do things!
     void OnCollisionEnter2D(Collision2D collision) {
 		Debug.Log ("Asteroid Collision!");
-        EarthHealth = EarthHealth - 1;
+        float astMass = collision.gameObject.GetComponent<Gravity>().asteroidMass;
+        if(astMass == SMALL_MASS) {
+                EarthHealth = EarthHealth - impacts[SMALL_MASS];
+        }
+        else if(astMass == MED_MASS) {
+                EarthHealth = EarthHealth - impacts[MED_MASS];
+        }
+        else if(astMass == LARGE_MASS) {
+                EarthHealth = EarthHealth - impacts[LARGE_MASS];
+        }
         DestroyObject(collision.gameObject);
     }
 
@@ -60,5 +84,17 @@ public class gameController : MonoBehaviour {
             return new Vector2(-v.x, v.y);
         }
         return new Vector2(v.x, -v.y);
+    }
+
+    void SetEarthHealthText() {
+        GameObject.FindWithTag("EarthHealth").GetComponent<Text>().text = EARTH_HEALTH_TEXT + EarthHealth.ToString();
+    }
+
+    void SetScoreText() {
+        GameObject.FindWithTag("Score").GetComponent<Text>().text = SCORE_TEXT + Score.ToString();
+    }
+
+    void SetSciencePointsText() {
+        GameObject.FindWithTag("SciencePoints").GetComponent<Text>().text = SCIENCE_POINTS_TEXT + SciencePoints.ToString();
     }
 }
