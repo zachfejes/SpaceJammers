@@ -1,0 +1,25 @@
+//Size Small - can destroy a city
+
+"Oh no! Not Tokyo!"
+"The asteroid hit Manhatten!"
+"Kilamenjaro was obliterated!"
+"Welp. There goes Moscow."
+"Toronto has been vaporized!"
+"There goes the Mediteranian."
+
+//Size Medium - can destroy a continent
+"Russia has been hit!"
+"North America is destroyed!"
+"Mega Tidal Wave!"
+"Australia is gone!"
+"The ice caps are gone!"
+
+
+//Size Large - can wipe out the planet
+"Oh darn."
+"Ugh, not again."
+"Now I know how the dinosaurs felt."
+"Mass Extinction #6"
+"Sigh..."
+"So... Mars?"
+"Darn."
