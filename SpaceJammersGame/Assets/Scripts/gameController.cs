@@ -4,19 +4,42 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class gameController : MonoBehaviour {
+    // CONSTANTS
     public const string EARTH_HEALTH_TEXT = "Earth Health: ";
     public const string SCORE_TEXT = "Score: ";
     public const string SCIENCE_POINTS_TEXT = "Science Points: ";
+
     public const int MAX_EARTH_HEALTH = 100;
+    public const int MAX_ASTEROIDS = 20;
+
+    public struct Asteroid {
+        public float mass, scale;
+        public int impact;
+
+        public Asteroid(float mass, int impact, float scale) {
+            this.mass = mass;
+            this.impact = impact;
+            this.scale = scale;
+        }
+    }
     public const float SMALL_MASS = 1000F;
     public const float MED_MASS = 4000F;
     public const float LARGE_MASS = 8000F;
-    public static float[] masses = new float[3] {SMALL_MASS, MED_MASS, LARGE_MASS};
-    public static Dictionary<float, int> impacts = new Dictionary<float, int>() {
-        {SMALL_MASS, 5},
-        {MED_MASS, 10},
-        {LARGE_MASS, 20}
-    };
+    public static Dictionary<int, Asteroid> asteroidClassInfo =
+        new Dictionary<int, Asteroid> {
+            {
+                1,
+                new Asteroid(SMALL_MASS, 5, 0.1F)
+            },
+            {
+                2,
+                new Asteroid(MED_MASS, 10, 0.15F)
+            },
+            {
+                3,
+                new Asteroid(LARGE_MASS, 15, 0.2F)
+            },
+        };
 
     // USER VARIABLES
     public int EarthHealth;
@@ -53,30 +76,29 @@ public class gameController : MonoBehaviour {
     void OnCollisionEnter2D(Collision2D collision) {
 		Debug.Log ("Asteroid Collision!");
         float astMass = collision.gameObject.GetComponent<Gravity>().asteroidMass;
-        if(astMass == SMALL_MASS) {
-                EarthHealth = EarthHealth - impacts[SMALL_MASS];
-        }
-        else if(astMass == MED_MASS) {
-                EarthHealth = EarthHealth - impacts[MED_MASS];
-        }
-        else if(astMass == LARGE_MASS) {
-                EarthHealth = EarthHealth - impacts[LARGE_MASS];
-        }
+        EarthHealth = EarthHealth - asteroidClassInfo[1].impact;
+        // TODO: Update score
+        // TODO: Update science
         DestroyObject(collision.gameObject);
     }
 
     // Generate asteroids from prefab
     void CreateNewAsteroid() {
+        if(GameObject.FindGameObjectsWithTag("Asteroid").Length == MAX_ASTEROIDS) { return; }
         Debug.Log ("New Asteroid!");
         // Instantiate
         GameObject newAsteroid = Instantiate(Resources.Load("Asteroid")) as GameObject;
         newAsteroid.transform.position = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0)*10.0F;
-        newAsteroid.GetComponent<Gravity>().asteroidMass = masses[ChooseMass()];
+
+        int asteroidClass = ChooseAsteroidClass();
+        newAsteroid.GetComponent<AsteroidLife>().asteroidClass = asteroidClass;
         newAsteroid.GetComponent<AsteroidLife>().initialVector = GetNormal2DVector(-newAsteroid.transform.position);
+        newAsteroid.GetComponent<Gravity>().asteroidMass = asteroidClassInfo[asteroidClass].mass;
+        newAsteroid.transform.localScale = new Vector3(asteroidClassInfo[asteroidClass].scale, asteroidClassInfo[asteroidClass].scale, asteroidClassInfo[asteroidClass].scale);
     }
 
-    int ChooseMass() {
-        return Random.Range(1, 100) % masses.Length;
+    int ChooseAsteroidClass() {
+        return Random.Range(1, 100) % asteroidClassInfo.Count + 1;
     }
 
     Vector2 GetNormal2DVector(Vector3 v) {
