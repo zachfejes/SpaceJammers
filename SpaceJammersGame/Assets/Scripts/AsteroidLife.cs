@@ -5,7 +5,7 @@ public class AsteroidLife : MonoBehaviour {
 
     public Vector2 initialVector;
     public float initialSpeed = 0;
-    public int status = 0;  // possible statuses: 0 = unscanned, 1 = scanned, 2 = rocket attached, 3 = in science zone, 4 = acquired
+    public int status = 0;  // possible statuses: 0 = unscanned, 1 = rocket launched, 2 = rocket attached, 3 = in science zone, 4 = acquired
 
 
 	// Use this for initialization
@@ -22,5 +22,15 @@ public class AsteroidLife : MonoBehaviour {
 
     void OnMouseDown() {
         Debug.Log("Asteroid Clicked!");
+        // Send Rocket to Asteroid to attach Thruster, set status to 1
+        if (status == 0) {
+            GameObject rocket = (GameObject)Instantiate(Resources.Load("Rocket"));
+        }
+
+ 
+        // Once Rocket has attached, set Status to 2, and update sprite, now if user clicks and drags, accelerate asteroid
+
+        // If asteroid is in the science zone, clicks launch another rocket
     }
+
 }
