@@ -19,6 +19,7 @@ public class AsteroidLife : MonoBehaviour {
         // Get the animator component
         animator = GetComponent<Animator>();
         animator.SetInteger("status", status);
+        animator.SetInteger("asteroidClass", asteroidClass);
         
         // Create a random initial velocity (also an apoapsis)
         initialVector.Normalize();
@@ -28,6 +29,7 @@ public class AsteroidLife : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         animator.SetInteger("status", status);  //update the animation appropriately
+        animator.SetInteger("asteroidClass", asteroidClass);
 
         if (status == 0) {       // As yet unscanned
 
