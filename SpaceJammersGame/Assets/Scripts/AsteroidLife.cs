@@ -19,4 +19,8 @@ public class AsteroidLife : MonoBehaviour {
 	void Update () {
 	
 	}
+
+    void OnMouseDown() {
+        Debug.Log("Asteroid Clicked!");
+    }
 }

@@ -6,7 +6,6 @@ public class Gravity : MonoBehaviour {
 	public float targetMass = 5.972e24f;
 	public float asteroidMass = 4e10f;
     public GameObject target;
-    public GameObject control;
     public float gravForce;
     float G = 6.674e-11f; // N*(m/kg)^2
     float universeScale = 40000000/10;
@@ -17,7 +16,7 @@ public class Gravity : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-
+        target = GameObject.FindGameObjectWithTag("Earth");
 	}
 	
 	// Update is called once per frame
