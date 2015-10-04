@@ -4,6 +4,7 @@ using System.Collections;
 public class AsteroidLife : MonoBehaviour {
 
     public Vector2 initialVector;
+    public int asteroidClass = 1;
     public float initialSpeed = 0;
     public int status = 0;  // possible statuses: 0 = unscanned, 1 = rocket launched, 2 = rocket attached, 3 = science rocket launched, 4 = acquired and descending
     public bool inScience = false;
@@ -18,7 +19,7 @@ public class AsteroidLife : MonoBehaviour {
         initialVector.Normalize();
         transform.GetComponent<Rigidbody2D>().velocity = initialSpeed * initialVector;
 	}
-	
+
 	// Update is called once per frame
 	void Update () { /*
         if (status == 0) {       // As yet unscanned
@@ -34,7 +35,7 @@ public class AsteroidLife : MonoBehaviour {
 
         }
         else if (status == 4) {  // Acquired and Descending
-        
+
         }*/
 	}
 
