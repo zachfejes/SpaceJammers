@@ -24,7 +24,9 @@ public class AsteroidLife : MonoBehaviour {
         Debug.Log("Asteroid Clicked!");
         // Send Rocket to Asteroid to attach Thruster, set status to 1
         if (status == 0) {
+            status = 1;
             GameObject rocket = (GameObject)Instantiate(Resources.Load("Rocket"));
+            rocket.GetComponent<RocketCatchup>().setTarget(transform);
         }
 
  
