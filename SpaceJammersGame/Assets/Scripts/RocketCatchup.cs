@@ -16,10 +16,10 @@ public class RocketCatchup : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        if (target) {
+        if (target){
             initialPosition = transform.position;
             targetPosition = target.position;
-            transform.position = Vector3.Slerp(initialPosition, targetPosition, speed*Time.smoothDeltaTime);
+            transform.position = Vector3.Slerp(initialPosition, targetPosition, speed * Time.smoothDeltaTime);
         }
 	}
 

@@ -5,7 +5,11 @@ public class AsteroidLife : MonoBehaviour {
 
     public Vector2 initialVector;
     public float initialSpeed = 0;
-    public int status = 0;  // possible statuses: 0 = unscanned, 1 = rocket launched, 2 = rocket attached, 3 = in science zone, 4 = acquired
+    public int status = 0;  // possible statuses: 0 = unscanned, 1 = rocket launched, 2 = rocket attached, 3 = science rocket launched, 4 = acquired and descending
+    public bool inScience = false;
+    public Vector2 mousePos1;
+    public Vector2 mousePos2;
+    public float asteroidThrust = 1;
 
 
 	// Use this for initialization
@@ -16,8 +20,22 @@ public class AsteroidLife : MonoBehaviour {
 	}
 	
 	// Update is called once per frame
-	void Update () {
-	
+	void Update () { /*
+        if (status == 0) {       // As yet unscanned
+
+        }
+        else if (status == 1) {  // Rocket Launched and Inbound
+
+        }
+        else if (status == 2) {  // Rocket Attached
+
+        }
+        else if (status == 3) {  // Science Rocket Launched
+
+        }
+        else if (status == 4) {  // Acquired and Descending
+        
+        }*/
 	}
 
     void OnMouseDown() {
@@ -28,11 +46,21 @@ public class AsteroidLife : MonoBehaviour {
             GameObject rocket = (GameObject)Instantiate(Resources.Load("Rocket"));
             rocket.GetComponent<RocketCatchup>().setTarget(transform);
         }
-
- 
-        // Once Rocket has attached, set Status to 2, and update sprite, now if user clicks and drags, accelerate asteroid
+        else if (status == 2) {
+            mousePos1 = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+        }
 
         // If asteroid is in the science zone, clicks launch another rocket
     }
+
+    void OnMouseUp() {
+        if (status == 2) {
+            mousePos2 = new Vector2(Input.mousePosition.x, Input.mousePosition.y);
+            Vector2 thrustVector = (mousePos2 - mousePos1).normalized;
+            Debug.Log("THRUSTING. Thrust Vector: " + thrustVector);
+            transform.GetComponent<Rigidbody2D>().AddForce(thrustVector * asteroidThrust);
+        }
+    }
+
 
 }
