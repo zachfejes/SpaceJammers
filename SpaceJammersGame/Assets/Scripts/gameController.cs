@@ -10,6 +10,7 @@ public class gameController : MonoBehaviour {
     public const string SCIENCE_POINTS_TEXT = "Science Points: ";
 
     public const int MAX_EARTH_HEALTH = 100;
+    public const int MAX_ASTEROIDS = 20;
 
     public struct Asteroid {
         public float mass, scale;
@@ -32,11 +33,11 @@ public class gameController : MonoBehaviour {
             },
             {
                 2,
-                new Asteroid(MED_MASS, 10, 0.2F)
+                new Asteroid(MED_MASS, 10, 0.15F)
             },
             {
                 3,
-                new Asteroid(LARGE_MASS, 15, 0.3F)
+                new Asteroid(LARGE_MASS, 15, 0.2F)
             },
         };
 
@@ -83,13 +84,13 @@ public class gameController : MonoBehaviour {
 
     // Generate asteroids from prefab
     void CreateNewAsteroid() {
+        if(GameObject.FindGameObjectsWithTag("Asteroid").Length == MAX_ASTEROIDS) { return; }
         Debug.Log ("New Asteroid!");
         // Instantiate
         GameObject newAsteroid = Instantiate(Resources.Load("Asteroid")) as GameObject;
-        newAsteroid.transform.position = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0)*10.0F;
+        newAsteroid.transform.position = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0)*10.0F + 10.0F;
 
         int asteroidClass = ChooseAsteroidClass();
-        Debug.Log(asteroidClass);
         newAsteroid.GetComponent<AsteroidLife>().asteroidClass = asteroidClass;
         newAsteroid.GetComponent<AsteroidLife>().initialVector = GetNormal2DVector(-newAsteroid.transform.position);
         newAsteroid.GetComponent<Gravity>().asteroidMass = asteroidClassInfo[asteroidClass].mass;
