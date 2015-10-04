@@ -88,7 +88,7 @@ public class gameController : MonoBehaviour {
         Debug.Log ("New Asteroid!");
         // Instantiate
         GameObject newAsteroid = Instantiate(Resources.Load("Asteroid")) as GameObject;
-        newAsteroid.transform.position = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0)*10.0F + 10.0F;
+        newAsteroid.transform.position = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0)*10.0F;
 
         int asteroidClass = ChooseAsteroidClass();
         newAsteroid.GetComponent<AsteroidLife>().asteroidClass = asteroidClass;
