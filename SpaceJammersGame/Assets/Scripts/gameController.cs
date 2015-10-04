@@ -2,6 +2,8 @@
 using System.Collections;
 
 public class gameController : MonoBehaviour {
+    // SMALL_MASS = 1000, MED_MASS = 4000, LARGE_MASS = 8000;
+    public static int[] masses = new int[3] {1000, 4000, 8000};
     public const int MAX_EARTH_HEALTH = 10;
 
     // USER VARIABLES
@@ -42,9 +44,21 @@ public class gameController : MonoBehaviour {
     // Generate asteroids from prefab
     void CreateNewAsteroid() {
         Debug.Log ("New Asteroid!");
-
         // Instantiate
         GameObject newAsteroid = Instantiate(Resources.Load("Asteroid")) as GameObject;
-        newAsteroid.transform.position = new Vector3(Random.Range(-10.0F, 10.0F), Random.Range(-10.0F, 10.0F), 0);
+        newAsteroid.transform.position = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0)*10.0F;
+        newAsteroid.GetComponent<Gravity>().asteroidMass = masses[ChooseMass()];
+        newAsteroid.GetComponent<AsteroidLife>().initialVector = GetNormal2DVector(-newAsteroid.transform.position);
+    }
+
+    int ChooseMass() {
+        return Random.Range(1, 100) % masses.Length;
+    }
+
+    Vector2 GetNormal2DVector(Vector3 v) {
+        if(Random.Range(1,100) % 2 == 0) {
+            return new Vector2(-v.x, v.y);
+        }
+        return new Vector2(v.x, -v.y);
     }
 }
