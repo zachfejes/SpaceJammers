@@ -89,6 +89,7 @@ public class gameController : MonoBehaviour {
         newAsteroid.transform.position = new Vector3(Random.Range(-1.0F, 1.0F), Random.Range(-1.0F, 1.0F), 0)*10.0F;
 
         int asteroidClass = ChooseAsteroidClass();
+        Debug.Log(asteroidClass);
         newAsteroid.GetComponent<AsteroidLife>().asteroidClass = asteroidClass;
         newAsteroid.GetComponent<AsteroidLife>().initialVector = GetNormal2DVector(-newAsteroid.transform.position);
         newAsteroid.GetComponent<Gravity>().asteroidMass = asteroidClassInfo[asteroidClass].mass;
@@ -96,7 +97,7 @@ public class gameController : MonoBehaviour {
     }
 
     int ChooseAsteroidClass() {
-        return Random.Range(1, 100) % asteroidClassInfo.Count;
+        return Random.Range(1, 100) % asteroidClassInfo.Count + 1;
     }
 
     Vector2 GetNormal2DVector(Vector3 v) {
