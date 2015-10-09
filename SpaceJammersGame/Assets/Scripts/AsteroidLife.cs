@@ -31,6 +31,13 @@ public class AsteroidLife : MonoBehaviour {
         animator.SetInteger("status", status);  //update the animation appropriately
         animator.SetInteger("asteroidClass", asteroidClass);
 
+        if (transform.position.magnitude <= 3) {
+            inScience = true;
+        }
+        else {
+            inScience = false;
+        }
+        /*
         if (status == 0) {       // As yet unscanned
 
         }
@@ -44,11 +51,17 @@ public class AsteroidLife : MonoBehaviour {
 
         }
         else if (status == 4) {  // Acquired and Descending
-        }
+        } */
 	}
 
     void OnMouseDown() {
         Debug.Log("Asteroid Clicked!");
+        // Regardless of where we are, if we're in the Science Zone, clicking should launch a science rocket for capture
+        if (inScience) {
+            status = 3;
+            GameObject scienceRocket = (GameObject)Instantiate(Resources.Load("ScienceRocket"));
+            scienceRocket.GetComponent<ScienceRocketCatchup>().setTarget(transform);
+        }
         // Send Rocket to Asteroid to attach Thruster, set status to 1
         if (status == 0) {
             status = 1;
