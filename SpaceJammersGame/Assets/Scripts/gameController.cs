@@ -13,13 +13,12 @@ public class gameController : MonoBehaviour {
     public const int MAX_ASTEROIDS = 20;
 
     public struct Asteroid {
-        public float mass, scale;
+        public float mass;
         public int impact;
 
-        public Asteroid(float mass, int impact, float scale) {
+        public Asteroid(float mass, int impact) {
             this.mass = mass;
             this.impact = impact;
-            this.scale = scale;
         }
     }
     public const float SMALL_MASS = 1000F;
@@ -29,15 +28,15 @@ public class gameController : MonoBehaviour {
         new Dictionary<int, Asteroid> {
             {
                 1,
-                new Asteroid(SMALL_MASS, 5, 0.1F)
+                new Asteroid(SMALL_MASS, 5)
             },
             {
                 2,
-                new Asteroid(MED_MASS, 20, 0.15F)
+                new Asteroid(MED_MASS, 20)
             },
             {
                 3,
-                new Asteroid(LARGE_MASS, 100, 0.2F)
+                new Asteroid(LARGE_MASS, 100)
             },
         };
 
@@ -93,7 +92,6 @@ public class gameController : MonoBehaviour {
     //when a collision is detected, do things!
     void OnCollisionEnter2D(Collision2D collision) {
 		Debug.Log ("Asteroid Collision!");
-        float astMass = collision.gameObject.GetComponent<Gravity>().asteroidMass;
         EarthHealth = EarthHealth - asteroidClassInfo[collision.gameObject.GetComponent<AsteroidLife>().asteroidClass].impact;
         // TODO: Update score
         // TODO: Update science
@@ -125,7 +123,7 @@ public class gameController : MonoBehaviour {
     int ChooseAsteroidClass() {
         return Random.Range(1, 100) % asteroidClassInfo.Count + 1;
     }
-    
+
     //depreciated
  /*   Vector2 GetNormal2DVector(Vector3 v) {
         if(Random.Range(1,100) % 2 == 0) {
